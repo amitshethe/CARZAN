@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "AddBooking";
+    Layout = "~/Views/User_Master_LayoutPage1.cshtml";
+}
+
+<h2>AddBooking</h2>
+
+@ViewBag.datefrom
+@ViewBag.dateupto
+
+<body>
+    <ol>
+        <li>Car name @Model.CarName</li>
+        <li>Car NO. @Model.CarNo</li>
+        <li> Fuel Type @Model.FuelType</li>
+        <li>Selected date from @ViewBag.datefrom</li>
+        <li> Selected date upto @ViewBag.dateupto</li>
+        <li> Estimated  price @ViewBag.TotalPriceFullDay</li>
+        Discount will be applied automatically
+
+
+
+
+    </ol>
+
+    
+    
+    
+
+    
+    <form method="post">
+       
+        <input type="submit" value=" book now" />
+    </form>
+</body>
+

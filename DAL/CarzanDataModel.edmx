@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CarzanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminTable">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingID" Type="int" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" />
+          <Property Name="EmailID" Type="varchar" MaxLength="255" />
+          <Property Name="Passwd" Type="varchar" MaxLength="255" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="10" />
+          <Property Name="AdminAddress" Type="varchar" MaxLength="255" />
+          <Property Name="AadharNo" Type="varchar" MaxLength="12" />
+          <Property Name="ProfilePic" Type="varchar" MaxLength="255" />
+          <Property Name="DoB" Type="date" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="AccountNo" />
+          </Key>
+          <Property Name="AccountNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="CardNo" Type="varchar" MaxLength="16" />
+          <Property Name="Expiry" Type="varchar" MaxLength="5" />
+          <Property Name="CVV" Type="varchar" MaxLength="3" />
+          <Property Name="Balance" Type="int" />
+        </EntityType>
+        <EntityType Name="BookingDetails">
+          <Key>
+            <PropertyRef Name="BookingID" />
+          </Key>
+          <Property Name="BookingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingDate" Type="date" />
+          <Property Name="CarNo" Type="varchar" MaxLength="10" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="BookedFrom" Type="date" />
+          <Property Name="BookedTo" Type="date" />
+          <Property Name="TotalPrice" Type="int" />
+        </EntityType>
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="CarNo" />
+          </Key>
+          <Property Name="CarNo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CarName" Type="varchar" MaxLength="30" />
+          <Property Name="FuelType" Type="varchar" MaxLength="20" />
+          <Property Name="AirConditioning" Type="varchar" MaxLength="10" />
+          <Property Name="TransmissionType" Type="varchar" MaxLength="30" />
+          <Property Name="SeatingCapacity" Type="int" />
+          <Property Name="Mileage" Type="int" />
+          <Property Name="CarType" Type="varchar" MaxLength="30" />
+          <Property Name="YearofManufacture" Type="date" />
+          <Property Name="FullDayPrice" Type="int" />
+          <Property Name="HalfDayPrice" Type="int" />
+          <Property Name="CarImage" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" />
+          <Property Name="EmailID" Type="varchar" MaxLength="255" />
+          <Property Name="Passwd" Type="varchar" MaxLength="255" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="10" />
+          <Property Name="UserAddress" Type="varchar" MaxLength="255" />
+          <Property Name="LicenseNo" Type="varchar" MaxLength="20" />
+          <Property Name="AadharNo" Type="varchar" MaxLength="12" />
+          <Property Name="ProfilePic" Type="varchar" MaxLength="255" />
+          <Property Name="DoB" Type="date" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__AdminTabl__Booki__1FCDBCEB">
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="0..1" />
+          <End Role="AdminTable" Type="Self.AdminTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetails">
+              <PropertyRef Name="BookingID" />
+            </Principal>
+            <Dependent Role="AdminTable">
+              <PropertyRef Name="BookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bank__UserID__267ABA7A">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Bank" Type="Self.Bank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Bank">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingDe__CarNo__1BFD2C07">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarNo" />
+            </Principal>
+            <Dependent Role="BookingDetails">
+              <PropertyRef Name="CarNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingDe__UserI__1CF15040">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="BookingDetails">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarzanModelStoreContainer">
+          <EntitySet Name="AdminTable" EntityType="Self.AdminTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingDetails" EntityType="Self.BookingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AdminTabl__Booki__1FCDBCEB" Association="Self.FK__AdminTabl__Booki__1FCDBCEB">
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+            <End Role="AdminTable" EntitySet="AdminTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bank__UserID__267ABA7A" Association="Self.FK__Bank__UserID__267ABA7A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bank" EntitySet="Bank" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingDe__CarNo__1BFD2C07" Association="Self.FK__BookingDe__CarNo__1BFD2C07">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingDe__UserI__1CF15040" Association="Self.FK__BookingDe__UserI__1CF15040">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CarzanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BookingDetail">
+          <Key>
+            <PropertyRef Name="BookingID" />
+          </Key>
+          <Property Name="BookingID" Type="Int32" Nullable="false" />
+          <Property Name="BookingDate" Type="DateTime" Precision="0" />
+          <Property Name="CarNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="BookedFrom" Type="DateTime" Precision="0" />
+          <Property Name="BookedTo" Type="DateTime" Precision="0" />
+          <Property Name="TotalPrice" Type="Int32" />
+          <NavigationProperty Name="Car" Relationship="Self.FK__BookingDe__CarNo__164452B1" FromRole="BookingDetails" ToRole="Cars" />
+          <NavigationProperty Name="User" Relationship="Self.FK__BookingDe__UserI__173876EA" FromRole="BookingDetails" ToRole="Users" />
+          <NavigationProperty Name="AdminTables" Relationship="CarzanModel.FK__AdminTabl__Booki__1FCDBCEB" FromRole="BookingDetail" ToRole="AdminTable" />
+        </EntityType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarNo" />
+          </Key>
+          <Property Name="CarNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CarName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FuelType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AirConditioning" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TransmissionType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SeatingCapacity" Type="Int32" />
+          <Property Name="Mileage" Type="Int32" />
+          <Property Name="CarType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="YearofManufacture" Type="DateTime" Precision="0" />
+          <Property Name="FullDayPrice" Type="Int32" />
+          <Property Name="HalfDayPrice" Type="Int32" />
+          <Property Name="CarImage" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BookingDetails" Relationship="Self.FK__BookingDe__CarNo__164452B1" FromRole="Cars" ToRole="BookingDetails" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Passwd" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LicenseNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AadharNo" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="ProfilePic" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DoB" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BookingDetails" Relationship="Self.FK__BookingDe__UserI__173876EA" FromRole="Users" ToRole="BookingDetails" />
+          <NavigationProperty Name="Banks" Relationship="CarzanModel.FK__Bank__UserID__267ABA7A" FromRole="User" ToRole="Bank" />
+        </EntityType>
+        <Association Name="FK__BookingDe__CarNo__164452B1">
+          <End Role="Cars" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarNo" />
+            </Principal>
+            <Dependent Role="BookingDetails">
+              <PropertyRef Name="CarNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BookingDe__UserI__173876EA">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="BookingDetails">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CarzanEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookingDetails" EntityType="Self.BookingDetail" />
+          <EntitySet Name="Cars" EntityType="Self.Car" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__BookingDe__CarNo__164452B1" Association="Self.FK__BookingDe__CarNo__164452B1">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BookingDe__UserI__173876EA" Association="Self.FK__BookingDe__UserI__173876EA">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+          </AssociationSet>
+          <EntitySet Name="AdminTables" EntityType="CarzanModel.AdminTable" />
+          <AssociationSet Name="FK__AdminTabl__Booki__1FCDBCEB" Association="CarzanModel.FK__AdminTabl__Booki__1FCDBCEB">
+            <End Role="BookingDetail" EntitySet="BookingDetails" />
+            <End Role="AdminTable" EntitySet="AdminTables" />
+          </AssociationSet>
+          <EntitySet Name="Banks" EntityType="CarzanModel.Bank" />
+          <AssociationSet Name="FK__Bank__UserID__267ABA7A" Association="CarzanModel.FK__Bank__UserID__267ABA7A">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Bank" EntitySet="Banks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AdminTable">
+          <Key>
+            <PropertyRef Name="AdminID" />
+          </Key>
+          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingID" Type="Int32" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmailID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Passwd" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AdminAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AadharNo" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="ProfilePic" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DoB" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BookingDetail" Relationship="CarzanModel.FK__AdminTabl__Booki__1FCDBCEB" FromRole="AdminTable" ToRole="BookingDetail" />
+        </EntityType>
+        <Association Name="FK__AdminTabl__Booki__1FCDBCEB">
+          <End Type="CarzanModel.BookingDetail" Role="BookingDetail" Multiplicity="0..1" />
+          <End Type="CarzanModel.AdminTable" Role="AdminTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookingDetail">
+              <PropertyRef Name="BookingID" />
+            </Principal>
+            <Dependent Role="AdminTable">
+              <PropertyRef Name="BookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="AccountNo" />
+          </Key>
+          <Property Name="AccountNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CardNo" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="Expiry" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CVV" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Balance" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="CarzanModel.FK__Bank__UserID__267ABA7A" FromRole="Bank" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Bank__UserID__267ABA7A">
+          <End Type="CarzanModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="CarzanModel.Bank" Role="Bank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Bank">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CarzanModelStoreContainer" CdmEntityContainer="CarzanEntities">
+          <EntitySetMapping Name="BookingDetails">
+            <EntityTypeMapping TypeName="CarzanModel.BookingDetail">
+              <MappingFragment StoreEntitySet="BookingDetails">
+                <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+                <ScalarProperty Name="CarNo" ColumnName="CarNo" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BookedFrom" ColumnName="BookedFrom" />
+                <ScalarProperty Name="BookedTo" ColumnName="BookedTo" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="CarzanModel.Car">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="CarNo" ColumnName="CarNo" />
+                <ScalarProperty Name="CarName" ColumnName="CarName" />
+                <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+                <ScalarProperty Name="AirConditioning" ColumnName="AirConditioning" />
+                <ScalarProperty Name="TransmissionType" ColumnName="TransmissionType" />
+                <ScalarProperty Name="SeatingCapacity" ColumnName="SeatingCapacity" />
+                <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+                <ScalarProperty Name="CarType" ColumnName="CarType" />
+                <ScalarProperty Name="YearofManufacture" ColumnName="YearofManufacture" />
+                <ScalarProperty Name="FullDayPrice" ColumnName="FullDayPrice" />
+                <ScalarProperty Name="HalfDayPrice" ColumnName="HalfDayPrice" />
+                <ScalarProperty Name="CarImage" ColumnName="CarImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CarzanModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="Passwd" ColumnName="Passwd" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
+                <ScalarProperty Name="LicenseNo" ColumnName="LicenseNo" />
+                <ScalarProperty Name="AadharNo" ColumnName="AadharNo" />
+                <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminTables">
+            <EntityTypeMapping TypeName="CarzanModel.AdminTable">
+              <MappingFragment StoreEntitySet="AdminTable">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+                <ScalarProperty Name="AadharNo" ColumnName="AadharNo" />
+                <ScalarProperty Name="AdminAddress" ColumnName="AdminAddress" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="Passwd" ColumnName="Passwd" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Banks">
+            <EntityTypeMapping TypeName="CarzanModel.Bank">
+              <MappingFragment StoreEntitySet="Bank">
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="CVV" ColumnName="CVV" />
+                <ScalarProperty Name="Expiry" ColumnName="Expiry" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AccountNo" ColumnName="AccountNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

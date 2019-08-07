@@ -1,0 +1,46 @@
+﻿@model BusinessEntities.CarEntities
+@{
+    ViewBag.Title = "AddDetails";
+    Layout = "~/Views/Admin_Master_LayoutPage.cshtml";
+}
+
+<h2>AddDetails</h2>
+
+<form method="post">
+    <h2>Add Car Details</h2>
+    <label>Enter Car Number</label><br />
+    @Html.TextBoxFor(c => c.CarNo)<br />
+    <label>Enter Car Name</label><br />
+    @Html.TextBoxFor(c => c.CarName)<br />
+    <label>Enter Fuel Type</label><br />
+    <input type="radio" name="FuelType" value="Petrol" />Petrol
+    <input type="radio" name="FuelType" value="Diesel" />Diesel
+    <input type="radio" name="FuelType" value="CNG" />CNG
+    <input type="radio" name="FuelType" value="Electric" />Electric<br />
+    <label>Enter Air Conditioning</label><br />
+    <input type="radio" name="AirConditioning" value="Yes" />Yes
+    <input type="radio" name="AirConditioning" value="No" />No<br />
+    <label>Enter Transmission Type</label><br />
+    <input type="radio" name="TransmissionType" value="Manual" />Manual
+    <input type="radio" name="TransmissionType" value="Automatic" />Automatic<br />
+    <label>Enter Seating Capacity</label><br />
+    @Html.TextBoxFor(c => c.SeatingCapacity)<br />
+    <label>Enter Mileage</label><br />
+    @Html.TextBoxFor(c => c.Mileage)<br />
+    <label>Enter Car type</label><br />
+    <select id="Car Type" name="CarType">
+        <option>SUV</option>
+        <option>Hatchback</option>
+        <option>Sedan</option>
+    </select><br />
+    <label>Enter Year of Manufacture</label><br />
+    @Html.TextBoxFor(c => c.YearofManufacture)<br />
+    <label>Enter full Day Price</label><br />
+    @Html.TextBoxFor(c => c.FullDayPrice)<br />
+    <label>Enter Half Day Price</label><br />
+    @Html.TextBoxFor(c => c.HalfDayPrice)<br />
+    @*<input type="file"  name="CarImage" value="CarImage"/>*@
+
+
+    <input type="submit" value="Add Car" />
+</form>

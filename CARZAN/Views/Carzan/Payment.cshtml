@@ -1,0 +1,35 @@
+﻿@model BusinessEntities.BankEntities
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/User_Master_LayoutPage1.cshtml";
+}
+
+<h2>Payment</h2>
+<form method="post">
+    <label> Enter the Card No.</label><br>
+    <input type="text" name="CardNo" /><br />
+
+    <label> Enter the expiry</label><br>
+    <input type="text" name="expiry" /><br />
+
+    <label> Enter the CVV</label><br>
+    <input type="text" name="cvv" /><br />
+    <input type="submit" value="ok"/>
+</form>
+
+
+@if (IsPost)
+{
+<ol>
+    <li>@TempData["totalprice"]</li>
+    <li>@Session["username"]</li>
+    <li>@Model.CardNo</li>
+    <li>@Model.Balance</li>
+</ol>
+}
+
+
+
+
+
+

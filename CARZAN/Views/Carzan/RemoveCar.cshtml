@@ -1,0 +1,14 @@
+﻿@model BusinessEntities.CarEntities
+@{
+    ViewBag.Title = "RemoveCar";
+    Layout = "~/Views/Admin_Master_LayoutPage.cshtml";
+}
+
+<h2>RemoveCar</h2>
+
+<form method="post">
+    <label>Enter the Car number to delete The car Details</label>
+    @Html.TextBoxFor(c => c.CarNo)
+    <input type="submit" value="Remove Car" />
+</form>
+

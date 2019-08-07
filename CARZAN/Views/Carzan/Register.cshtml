@@ -1,0 +1,36 @@
+﻿@model BusinessEntities.UserEntities
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/User_Master_LayoutPage1.cshtml";
+}
+<form method="post">
+    <h2>Register</h2>
+    <label>Enter the First name</label><br />
+    @Html.TextBoxFor(c => c.FirstName)<br />
+    <label>Enter the Last name</label><br />
+    @Html.TextBoxFor(c => c.LastName)<br />
+    <label>Enter the Email Address</label><br />
+    @Html.TextBoxFor(c => c.EmailID)<br />
+    <label>Enter the Password</label><br />
+    @Html.PasswordFor(c => c.Passwd)<br />
+    <label>Enter the Mobile Number</label><br />
+    @Html.TextBoxFor(c => c.MobileNo)<br />
+    <label>Enter the Address</label><br />
+    @Html.TextBoxFor(c => c.UserAddress)<br />
+    <label>Enter the Driving License Number</label><br />
+    @Html.TextBoxFor(c => c.LicenseNo)<br />
+    <label>Enter the UIDAI(Aadhar) number</label><br />
+    @Html.TextBoxFor(c => c.AadharNo)<br />
+    <label>Enter the Date of Birth</label><br />
+    @Html.TextBoxFor(c => c.DoB)<br />
+    <label>Pick the gender</label><br />
+    <input type="radio" name="gender" value="Male" />Male
+    <input type="radio" name="gender" value="Female" />Female
+
+    @*<input type="file"  name="ProfilePic" value="profilepic"/>*@
+
+    <input type="submit" value="Register" />
+</form>
+
+
+
